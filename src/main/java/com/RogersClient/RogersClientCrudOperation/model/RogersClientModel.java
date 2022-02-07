@@ -1,5 +1,7 @@
 package com.RogersClient.RogersClientCrudOperation.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 
@@ -14,6 +16,7 @@ import java.util.Date;
 @ToString
 @Entity
 @Table(name= "rogers_client")
+@ApiModel(description = "details about the models")
 public class RogersClientModel {
     @PrimaryKey
     @GeneratedValue(strategy = GenerationType.AUTO)
