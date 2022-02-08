@@ -1,7 +1,8 @@
 server:
   port: 8181
 
-<!--Cassandra Config for datasource-->
+
+
 spring:
   data:
   cassandra:
