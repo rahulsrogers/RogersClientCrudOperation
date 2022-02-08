@@ -1,12 +1,24 @@
 server:
   port: 8181
 
-<!--Cassandra Config for datasource-->
+
+
 spring:
   data:
-  cassandra:
-  keyspaceName: quangkeyspace
-  contactPoints: localhost
-  port: 9042
-  schemaAction: CREATE_IF_NOT_EXISTS
-  entity-base-package:  com.RogersClient.RogersClientCrudOperation.model
+    cassandra:
+      hosts: 127.0.0.1
+      keyspace: "vafeature"
+      username: cassandra
+      password: cassandra
+      port: 9042
+      #schemaAction: NONE
+
+
+
+
+
+
+
+
+
+
