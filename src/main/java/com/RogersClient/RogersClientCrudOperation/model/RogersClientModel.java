@@ -4,8 +4,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
+import org.springframework.data.cassandra.core.mapping.Table;
 
-import javax.persistence.*;
+//import javax.persistence.*;
 import java.util.Date;
 
 @Data
@@ -14,12 +15,14 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Entity
-@Table(name= "rogers_client")
+//@Entity
+@Table
 @ApiModel(description = "details about the models")
 public class RogersClientModel {
+
+  //  @Id
+   // @GeneratedValue(strategy = GenerationType.AUTO)
     @PrimaryKey
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int  guid;
    private String feature_title ;
     private String feature_description;

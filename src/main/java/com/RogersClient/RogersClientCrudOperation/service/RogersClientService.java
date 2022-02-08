@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public class RogersClientService {
+
     @Autowired
     private RogersClientRepo rogersClientRepo;
+
+
     public RogersClientModel saveRogersClientModel(RogersClientModel RogersClientModel){
         return  rogersClientRepo.save(RogersClientModel);
     }
