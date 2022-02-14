@@ -3,9 +3,8 @@ server:
 
 
 
-spring:
-  data:
-    cassandra:
+
+cassandra:
       hosts: 127.0.0.1
       keyspace: "vafeature"
       username: cassandra
