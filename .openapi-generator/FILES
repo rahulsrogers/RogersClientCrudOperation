@@ -1,0 +1,7 @@
+README.md
+pom.xml
+src/main/java/com/chat/features/api/ApiUtil.java
+src/main/java/com/chat/features/api/FeatureApi.java
+src/main/java/com/chat/features/model/FeatureDetails.java
+src/main/java/com/chat/features/model/FeatureRequest.java
+src/main/java/com/chat/features/model/ResponseStatus.java
