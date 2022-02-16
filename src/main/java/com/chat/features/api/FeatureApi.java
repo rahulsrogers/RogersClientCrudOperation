@@ -24,7 +24,7 @@ import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-02-11T09:52:10.928618200-05:00[America/Toronto]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-02-16T06:31:35.058456400-05:00[America/Toronto]")
 @Validated
 @Api(value = "feature", description = "the feature API")
 public interface FeatureApi {

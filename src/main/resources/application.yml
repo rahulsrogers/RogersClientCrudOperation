@@ -10,7 +10,7 @@ cassandra:
       username: cassandra
       password: cassandra
       port: 9042
-      #schemaAction: NONE
+      schemaAction: NONE
 
 
 

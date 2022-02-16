@@ -8,12 +8,12 @@ import io.swagger.annotations.ApiModelProperty;
 import org.openapitools.jackson.nullable.JsonNullable;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
-//import org.hibernate.validator.constraints.*;
+import org.hibernate.validator.constraints.*;
 
 /**
  * ResponseStatus
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-02-11T09:52:10.928618200-05:00[America/Toronto]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-02-16T06:31:35.058456400-05:00[America/Toronto]")
 public class ResponseStatus   {
   @JsonProperty("code")
   private String code;

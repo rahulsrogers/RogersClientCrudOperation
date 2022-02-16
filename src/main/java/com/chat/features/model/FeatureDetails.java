@@ -6,22 +6,15 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.openapitools.jackson.nullable.JsonNullable;
-import org.springframework.data.cassandra.core.mapping.Table;
-
 import javax.validation.Valid;
 import javax.validation.constraints.*;
-//import org.hibernate.validator.constraints.*;
+import org.hibernate.validator.constraints.*;
 
 /**
  * FeatureDetails
  */
-
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-02-11T09:52:10.928618200-05:00[America/Toronto]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-02-16T06:31:35.058456400-05:00[America/Toronto]")
 public class FeatureDetails   {
   @JsonProperty("id")
   private String id;

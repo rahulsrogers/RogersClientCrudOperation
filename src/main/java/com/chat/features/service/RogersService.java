@@ -2,24 +2,24 @@ package com.chat.features.service;
 
 import com.chat.features.model.FeatureDetails;
 import com.chat.features.model.FeatureRequest;
+import com.chat.features.model.RogersClientModel;
 
 import java.util.List;
 
 public interface RogersService {
 
-    List<FeatureDetails> getTodos();
+    List<RogersClientModel> getTodos();
 
-    FeatureDetails getTodoById(String id);
+    RogersClientModel getTodoById(String id);
 
-    FeatureDetails insert(FeatureDetails todo);
+    String insert(FeatureRequest todo);
 
-    void updateTodo(String id,FeatureDetails featureDetails);
+    void updateTodo(String id,FeatureRequest featureDetails);
 
     void deleteTodo(String todoId);
 
-    FeatureRequest insert(FeatureRequest todo);
 
-    void updateTodo(String id,FeatureRequest featureRequest);
+
 
 
 

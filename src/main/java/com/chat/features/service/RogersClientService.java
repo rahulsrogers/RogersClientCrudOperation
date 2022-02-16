@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+
 @Service
 public class RogersClientService implements  RogersService{
 
@@ -20,62 +22,67 @@ public class RogersClientService implements  RogersService{
 
 
     @Override
-    public List<FeatureDetails> getTodos() {
-        List<FeatureDetails> todos = new ArrayList<>();
+    public List<RogersClientModel> getTodos() {
+        List<RogersClientModel> todos = new ArrayList<>();
         rogersClientRepo.findAll();
         return todos;
 
     }
 
-    public FeatureDetails getTodoById(String id) {
+    public RogersClientModel getTodoById(String id) {
 
-        return rogersClientRepo.findGid(id);
+        return rogersClientRepo.findByid(id);
+    }
+
+
+
+    @Override
+    public String  insert(FeatureRequest todo) {
+        RogersClientModel model = new RogersClientModel();
+
+        model.setTitle(todo.getTitle());
+        model.setLaunchYear(todo.getLaunchYear());
+        model.setProductOwner(todo.getProductOwner());
+       // model.setLaunchQuarter(todo.getLaunchQuarter());
+        model.setDescription(todo.getDescription());
+        model.setLaunchDate(todo.getLaunchDate());
+        //model.setBrand(todo.getBrand());
+        model.setExpectedRoi(todo.getExpectedRoi());
+        model.setBusinessValue(todo.getBusinessValue());
+
+        // similarly set all other details to RogersClientModel
+        rogersClientRepo.save(model);
+        return model.getGuid();
+
+
+
     }
 
     @Override
-    public FeatureDetails insert(FeatureDetails todo) {
-        return rogersClientRepo.save(todo);
-    }
-
-    @Override
-    public void updateTodo(String id,FeatureDetails featureDetails) {
-FeatureDetails existing=rogersClientRepo.findGid(id);
+    public void updateTodo(String id,FeatureRequest featureDetails) {
+RogersClientModel existing=rogersClientRepo.findByid(id);
         System.out.println(existing.toString());
-        existing.setBrand(featureDetails.getBrand());
+       // existing.setBrand(featureDetails.getBrand());
         existing.setBusinessValue(featureDetails.getBusinessValue());
         existing.setExpectedRoi(featureDetails.getExpectedRoi());
         existing.setTitle(featureDetails.getTitle());
         existing.setDescription(featureDetails.getDescription());
         existing.setLaunchDate(featureDetails.getLaunchDate());
-        existing.setLaunchQuarter(featureDetails.getLaunchQuarter());
+       // existing.setLaunchQuarter(featureDetails.getLaunchQuarter());
         existing.setLaunchYear(featureDetails.getLaunchYear());
         existing.setProductOwner(featureDetails.getProductOwner());
 rogersClientRepo.save(existing);
     }
 
     @Override
-    public void deleteTodo(String todoId) {
-rogersClientRepo.DeleteById(todoId);
+    public void deleteTodo(String id) {
+        RogersClientModel rogersClientModel=new RogersClientModel();
+       // rogersClientRepo.deleteById(Integer.valueOf(id));
+      //  rogersClientModel.setIs_deleted(Boolean.TRUE);
+         System.out.println("Deleted the record ");
+
+
     }
 
-    @Override
-    public FeatureRequest insert(FeatureRequest todo) {
-        return rogersClientRepo.save(todo);
-    }
 
-    @Override
-    public void updateTodo(String id, FeatureRequest featureRequest) {
-        FeatureRequest existing=rogersClientRepo.find_Gid(id);
-        System.out.println(existing.toString());
-        existing.setBrand(featureRequest.getBrand());
-        existing.setBusinessValue(featureRequest.getBusinessValue());
-        existing.setExpectedRoi(featureRequest.getExpectedRoi());
-        existing.setTitle(featureRequest.getTitle());
-        existing.setDescription(featureRequest.getDescription());
-        existing.setLaunchDate(featureRequest.getLaunchDate());
-        existing.setLaunchQuarter(featureRequest.getLaunchQuarter());
-        existing.setLaunchYear(featureRequest.getLaunchYear());
-        existing.setProductOwner(featureRequest.getProductOwner());
-        rogersClientRepo.save(existing);
-    }
 }

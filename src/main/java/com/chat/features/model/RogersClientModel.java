@@ -7,6 +7,7 @@ import org.springframework.data.cassandra.core.mapping.Table;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.util.function.Predicate;
 
 @Data
 @Getter
@@ -43,12 +44,7 @@ public class RogersClientModel {
    @Min(1)
    @Max(100)
     private String expectedRoi ;
-    private boolean is_deleted=false;
-
-
-
-
-
+    private   Boolean is_deleted=false;
 
 
 }

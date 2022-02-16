@@ -1,25 +1,17 @@
 package com.chat.features.controller;
 
 import com.chat.features.api.FeatureApi;
-import com.chat.features.api.RogersApi;
 import com.chat.features.model.FeatureDetails;
 import com.chat.features.model.FeatureRequest;
 import com.chat.features.model.ResponseStatus;
 import com.chat.features.model.RogersClientModel;
-import com.chat.features.repository.RogersClientRepo;
 import com.chat.features.service.RogersClientService;
-import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.NativeWebRequest;
 
-import javax.annotation.Generated;
-import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -36,7 +28,7 @@ public class FeatureApiController implements FeatureApi {
 
 @GetMapping("/feature")
 public ResponseEntity<FeatureDetails>_getFeature(){
-       List<FeatureDetails> list=rogersClientService.getTodos();
+       List<RogersClientModel> list=rogersClientService.getTodos();
         return new ResponseEntity<FeatureDetails>((FeatureDetails) list, HttpStatus.OK);
 }
 
@@ -48,10 +40,10 @@ public ResponseEntity<List<FeatureDetails>> getFeatures(@PathVariable String id)
 
 @PostMapping("/feature")
     public ResponseEntity<ResponseStatus> _addFeature(  FeatureRequest featureRequest) {
-        FeatureRequest featureRequest1 =rogersClientService.insert(featureRequest);
+        String id =rogersClientService.insert(featureRequest);
        HttpHeaders httpHeaders = new HttpHeaders();
-
-        return new ResponseEntity(featureRequest1, httpHeaders, HttpStatus.CREATED);
+httpHeaders.add("id",id);
+        return new ResponseEntity(null, httpHeaders, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/feature/{id")

@@ -4,36 +4,17 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.openapitools.jackson.nullable.JsonNullable;
-import javax.validation.Valid;
+
 import javax.validation.constraints.*;
-//import org.hibernate.validator.constraints.*;
 
 /**
  * FeatureRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-02-11T09:52:10.928618200-05:00[America/Toronto]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-02-16T06:31:35.058456400-05:00[America/Toronto]")
 public class FeatureRequest   {
-
-
-  @JsonProperty("Id")
-  private  String id;
-
-
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
   @JsonProperty("title")
   private String title;
-
-
 
   @JsonProperty("description")
   private String description;
@@ -111,10 +92,6 @@ public class FeatureRequest   {
     public String toString() {
       return String.valueOf(value);
     }
-
-
-
-
 
     @JsonCreator
     public static LaunchQuarterEnum fromValue(String value) {
@@ -195,7 +172,6 @@ public class FeatureRequest   {
    * @return brand
   */
   @ApiModelProperty(example = "Rogers", required = true, value = "")
-  @NotNull
 
 
   public BrandEnum getBrand() {
@@ -258,7 +234,6 @@ public class FeatureRequest   {
    * @return launchQuarter
   */
   @ApiModelProperty(example = "Q1", required = true, value = "")
-  @NotNull
 
 
   public LaunchQuarterEnum getLaunchQuarter() {
