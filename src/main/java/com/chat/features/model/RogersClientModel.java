@@ -5,8 +5,12 @@ import lombok.*;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.util.UUID;
 import java.util.function.Predicate;
 
 @Data
@@ -15,26 +19,27 @@ import java.util.function.Predicate;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-//@Entity
+@Entity
 
 @ApiModel(description = "details about the models")
 @Table
 public class RogersClientModel {
 
   //  @Id
-   // @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @PrimaryKey
-    private String  guid;
+    //@GeneratedValue(strategy = GenerationType.AUTO)
+    private String id;
     @Min(1)
     @Max(100)
    private String title ;
     @Min(1)
     @Max(100)
     private String description;
-   private Brand brand;
+   private FeatureRequest.BrandEnum brand;
    private String launchDate;
     private int launchYear;
-   private LaunchQuarter launchQuarter ;
+   private FeatureRequest.LaunchQuarterEnum launchQuarter ;
    @Min(1)
    @Max(20)
    private String productOwner ;

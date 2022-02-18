@@ -1,12 +1,6 @@
-server:
-  port: 8181
-
-
-
-
 cassandra:
       hosts: 127.0.0.1
-      keyspace: "vafeature"
+      keyspace: vafeature
       username: cassandra
       password: cassandra
       port: 9042
