@@ -4,12 +4,9 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.openapitools.jackson.nullable.JsonNullable;
-import javax.validation.Valid;
+
 import javax.validation.constraints.*;
-import org.hibernate.validator.constraints.*;
 
 /**
  * FeatureDetails
@@ -153,13 +150,14 @@ public class FeatureDetails   {
    * minimum: 1
    * maximum: 100
    * @return title
+   * @param title
   */
   @ApiModelProperty(required = true, value = "")
   @NotNull
 
 @DecimalMin("1") @DecimalMax("100") 
-  public String getTitle() {
-    return title;
+  public String getTitle(String title) {
+    return this.title;
   }
 
   public void setTitle(String title) {

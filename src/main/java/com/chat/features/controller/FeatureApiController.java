@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://10.18.168.219:8080")
+@CrossOrigin(origins = "*")
 @RequestMapping("/api")
 public class FeatureApiController implements FeatureApi {
 
@@ -32,29 +32,21 @@ public class FeatureApiController implements FeatureApi {
        this.rogersClientService=rogersClientService;
    }
 
+@Override
 
 @GetMapping("/feature")
-public ResponseEntity<List<FeatureDetails>> _getFeatures(@RequestParam(required = false) String id){
-       try {
-        List<FeatureDetails> tutorials = new ArrayList<FeatureDetails>();
-        Iterator iterator=tutorials.iterator();
-           while (iterator.hasNext()) {
-               if (id == null) {
-
-                   rogersClientService.getTodos();
-                   tutorials.add((FeatureDetails) iterator.next());
-               }
-           }
+public ResponseEntity<List<FeatureDetails>> getFeatures(){
+    List<FeatureDetails> featureDetails=rogersClientService.getTodos();
+       try{
+         if (featureDetails.isEmpty())
+             return  new ResponseEntity<>(featureDetails,HttpStatus.NO_CONTENT);
+         else return  new ResponseEntity<>(featureDetails,HttpStatus.OK);
+     }catch (Exception e){
+         return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+     }
 
 
 
-        if (tutorials.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(tutorials, HttpStatus.OK);
-    } catch (Exception e) {
-        return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
 }
 
 
@@ -76,19 +68,17 @@ public ResponseEntity<List<FeatureDetails>> _getFeatures(@RequestParam(required 
 //
 //   return null;
 //}
-
+@Override
 @GetMapping("/feature/{id}")
-public ResponseEntity<List<FeatureDetails>> getFeatures(@PathVariable String id) {
+public ResponseEntity<FeatureDetails> getFeature(@PathVariable String id) {
 
 try {
-    List<FeatureDetails> tutorialData = (List<FeatureDetails>) rogersClientService.getTodoById(id);
-    if (tutorialData.equals(tutorialData)) {
-        return new ResponseEntity(tutorialData, HttpStatus.OK);
-    } else {
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    FeatureDetails featureDetails =  rogersClientService.getTodoById(id);
+
+        return new ResponseEntity(featureDetails, HttpStatus.OK);
     }
-}catch (Exception e){
-    return  new ResponseEntity<>(HttpStatus.NO_CONTENT);
+catch (Exception e){
+    return  new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
 }
 //    List<FeatureDetails> list= (List<FeatureDetails>) rogersClientService.getTodoById(id);
 //    return new ResponseEntity<>(list, HttpStatus.OK);
@@ -98,25 +88,52 @@ try {
     public ResponseEntity<ResponseStatus> _addFeature(  FeatureRequest featureRequest) {
      String id =rogersClientService.insert(featureRequest);
        HttpHeaders httpHeaders = new HttpHeaders();
-      // httpHeaders.add("id",id);
+
        try {
+
+           ResponseStatus responseStatus = new ResponseStatus();
+           responseStatus.setCode("201");
            httpHeaders.add("id",id);
-           return new ResponseEntity(id, httpHeaders, HttpStatus.CREATED);
+           responseStatus.setCodeName("Success");
+           return new ResponseEntity(responseStatus, httpHeaders, HttpStatus.CREATED);
+
+          // return new ResponseEntity(id, httpHeaders, HttpStatus.CREATED);
        }catch (Exception e){
+
               return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
        }
     }
 
     @DeleteMapping("/feature/{id}")
     public ResponseEntity<ResponseStatus> deleteFeature(@PathVariable  String id){
+        ResponseStatus responseStatus = new ResponseStatus();
+       try{
         rogersClientService.deleteTodo(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        responseStatus.setCode("201");
+           responseStatus.setCodeName("Success");
+        return new ResponseEntity<>(responseStatus,HttpStatus.OK);}
+       catch (Exception e){
+           responseStatus.setCode("500");
+           responseStatus.setCodeName("Internal Server Error");
+           return  new ResponseEntity<>(responseStatus,HttpStatus.INTERNAL_SERVER_ERROR);
+       }
     }
 
     @PutMapping("/feature/{id}")
        public ResponseEntity<ResponseStatus> updateFeature(@PathVariable String id,@RequestBody FeatureRequest featureRequest){
-           rogersClientService.updateTodo(id, featureRequest);
-           return new ResponseEntity(rogersClientService.getTodoById(id), HttpStatus.OK);
+        ResponseStatus responseStatus = new ResponseStatus();
+       try {
+              rogersClientService.updateTodo(id, featureRequest);
+
+              responseStatus.setCode("201");
+              responseStatus.setCodeName("Success");
+              return new ResponseEntity<>(responseStatus,HttpStatus.OK);
+             // return new ResponseEntity(rogersClientService.getTodoById(id), HttpStatus.OK);
+          }catch (Exception e){
+           responseStatus.setCode("500");
+           responseStatus.setCodeName("Internal Server Error");
+              return  new ResponseEntity<>(responseStatus,HttpStatus.INTERNAL_SERVER_ERROR);
+          }
        }
 
 

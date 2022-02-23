@@ -57,7 +57,7 @@ public class FeatureRequest   {
   }
 
   @JsonProperty("brand")
-  private BrandEnum brand;
+  private Brand brand;
 
   @JsonProperty("launchDate")
   private String launchDate;
@@ -162,7 +162,7 @@ public class FeatureRequest   {
     this.description = description;
   }
 
-  public FeatureRequest brand(BrandEnum brand) {
+  public FeatureRequest brand(Brand brand) {
     this.brand = brand;
     return this;
   }
@@ -174,11 +174,11 @@ public class FeatureRequest   {
   @ApiModelProperty(example = "Rogers", required = true, value = "")
 
 
-  public BrandEnum getBrand() {
+  public Brand getBrand() {
     return brand;
   }
 
-  public void setBrand(BrandEnum brand) {
+  public void setBrand(Brand brand) {
     this.brand = brand;
   }
 

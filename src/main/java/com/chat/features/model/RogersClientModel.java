@@ -30,16 +30,16 @@ public class RogersClientModel {
     @PrimaryKey
     //@GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
-    @Min(1)
-    @Max(100)
+    //@Min(1)
+    //@Max(100)
    private String title ;
-    @Min(1)
-    @Max(100)
+    //@Min(1)
+    //@Max(100)
     private String description;
-   private FeatureRequest.BrandEnum brand;
+   private Brand brand;
    private String launchDate;
     private int launchYear;
-   private FeatureRequest.LaunchQuarterEnum launchQuarter ;
+   private LaunchQuarter launchQuarter ;
    @Min(1)
    @Max(20)
    private String productOwner ;
