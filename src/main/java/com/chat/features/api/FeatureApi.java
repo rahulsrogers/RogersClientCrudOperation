@@ -13,16 +13,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.multipart.MultipartFile;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
+import javax.validation.constraints.*;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-02-16T06:31:35.058456400-05:00[America/Toronto]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-02-28T05:48:51.547359200-05:00[America/Toronto]")
 @Validated
 @Api(value = "feature", description = "the feature API")
-@RestController
 public interface FeatureApi {
 
     default Optional<NativeWebRequest> getRequest() {
@@ -134,6 +138,9 @@ public interface FeatureApi {
         return getFeature(id);
     }
 
+    @GetMapping("/feature")
+    ResponseEntity<List<List<FeatureDetails>>> getFeatures();
+
     // Override this method
     default  ResponseEntity<FeatureDetails> getFeature(String id) {
         getRequest().ifPresent(request -> {
@@ -153,11 +160,14 @@ public interface FeatureApi {
     /**
      * GET /feature : Gets the list of all the added features.
      *
+     * @param fromDate The start date from which features launched on or after this date are returned in the descending order (optional)
+     * @param toDate The end date up to which features launched on or before this date are returned in the descending order (optional)
+     * @param groupBy The parameter by which returned feature details are grouped by. (optional)
      * @return Successfully fetched the feature details. (status code 200)
      *         or Bad request. (status code 400)
      *         or Unknown server error. (status code 500)
      */
-    @ApiOperation(value = "Gets the list of all the added features.", nickname = "getFeatures", notes = "", response = FeatureDetails.class, responseContainer = "List", authorizations = {
+    @ApiOperation(value = "Gets the list of all the added features.", nickname = "getFeatures", notes = "", response = List.class, responseContainer = "List", authorizations = {
         
         @Authorization(value = "BearerAuth")
          }, tags={ "Features api", })
@@ -169,16 +179,16 @@ public interface FeatureApi {
         value = "/feature",
         produces = { "application/json" }
     )
-    default ResponseEntity<List<FeatureDetails>> _getFeatures() {
-        return getFeatures();
+    default ResponseEntity<List<List<FeatureDetails>>> _getFeatures(@ApiParam(value = "The start date from which features launched on or after this date are returned in the descending order" ) @RequestHeader(value="fromDate", required=false) String fromDate,@ApiParam(value = "The end date up to which features launched on or before this date are returned in the descending order" ) @RequestHeader(value="toDate", required=false) String toDate,@ApiParam(value = "The parameter by which returned feature details are grouped by.", allowableValues = "y, q, d") @Valid @RequestParam(value = "groupBy", required = false) String groupBy) {
+        return getFeatures(fromDate, toDate, groupBy);
     }
 
     // Override this method
-    default  ResponseEntity<List<FeatureDetails>> getFeatures() {
+    default  ResponseEntity<List<List<FeatureDetails>>> getFeatures(String fromDate, String toDate, String groupBy) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"launchQuarter\" : \"Q1\", \"expectedRoi\" : \"expectedRoi\", \"launchYear\" : 2021, \"businessValue\" : \"businessValue\", \"description\" : \"description\", \"id\" : \"id\", \"launchDate\" : \"2021-08-29T09:12:33.001Z\", \"title\" : \"title\", \"productOwner\" : \"productOwner\", \"brand\" : \"Rogers\" }";
+                    String exampleString = "null";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }

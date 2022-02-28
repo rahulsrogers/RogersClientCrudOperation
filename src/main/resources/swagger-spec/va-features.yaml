@@ -1,312 +1,312 @@
-openapi: "3.0.0"
-info:
-  description: "VA Features APIs"
-  version: "1.0.0"
-  title: "VA-Features"
-
-servers:
-
-  - url: https://envheader-va-ms.chatapps-environment.rci.rogers.com/va-features/version
-    description: envheader can be dev01,dev02,qa01,qa02 and need to be passed as a header param to get it replaced by APIM
-
-tags:
-  - name: Features api
-
-
-paths:
-
-  /feature:
-    post:
-      security:
-        - BearerAuth: [ ]
-      tags:
-        - Features api
-      operationId: addFeature
-      summary: Adds new feature details.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/FeatureRequest'
-
-      responses:
-        '201':
-          description: Successfully added the feature details.
-          headers:
-            id:
-              $ref: '#/components/headers/id'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseStatus'
-        '400':
-          description: Bad request.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseStatus'
-        '500':
-          description: Unknown server error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseStatus'
-
-    get:
-      security:
-        - BearerAuth: [ ]
-      tags:
-        - Features api
-      operationId: getFeatures
-      summary: Gets the list of all the added features.
-      responses:
-        '200':
-          description: Successfully fetched the feature details.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/FeatureDetails'
-        '400':
-          description: Bad request.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseStatus'
-        '500':
-          description: Unknown server error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseStatus'
-
-  /feature/{id}:
-    get:
-      security:
-        - BearerAuth: [ ]
-      parameters:
-        - $ref: '#/components/parameters/id'
-      tags:
-        - Features api
-      operationId: getFeature
-      summary: Gets feature details based on Id.
-      responses:
-        '200':
-          description: Successfully fetched the feature details.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/FeatureDetails'
-        '400':
-          description: Bad request.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseStatus'
-        '500':
-          description: Unknown server error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseStatus'
-
-    put:
-      security:
-        - BearerAuth: [ ]
-      parameters:
-        - $ref: '#/components/parameters/id'
-      tags:
-        - Features api
-      operationId: updateFeature
-      summary: Updates existing feature details.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/FeatureRequest'
-
-      responses:
-        '200':
-          description: Successfully updated the feature details.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseStatus'
-        '400':
-          description: Bad request.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseStatus'
-        '500':
-          description: Unknown server error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseStatus'
-
-    delete:
-      security:
-        - BearerAuth: [ ]
-      parameters:
-        - $ref: '#/components/parameters/id'
-      tags:
-        - Features api
-      operationId: deleteFeature
-      summary: Deletes an existing feature.
-
-      responses:
-        '200':
-          description: Successfully deleted the feature details.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseStatus'
-        '400':
-          description: Bad request.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseStatus'
-        '500':
-          description: Unknown server error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseStatus'
-
-components:
-
-  securitySchemes:
-    ApiKeyAuth:
-      type: apiKey
-      name: "x-api-key"
-      in: "header"
-    BearerAuth:
-      type: http
-      scheme: bearer
-
-  headers:
-    id:
-      description: Unique identifier of the feature
-      schema:
-        type: string
-      required: true
-
-  parameters:
-    apiKey:
-      in: header
-      name: x-api-key
-      description: >-
-        Key to access the APIs.
-      schema:
-        type: string
-      required: true
-
-    id:
-      name: id
-      in: path
-      description: Feature Id
-      schema:
-        type: string
-      required: true
-
-  schemas:
-    FeatureRequest:
-      type: object
-      required: [title, description, brand, launchDate, launchYear, launchQuarter, productOwner, businessValue,
-      expectedRoi]
-      properties:
-        title:
-          type: string
-          minimum: 1
-          maximum: 100
-        description:
-          type: string
-          minimum: 1
-          maximum: 100
-        brand:
-          type: string
-          example: Rogers
-          enum: [ "Rogers", "Fido", "Chatr" ]
-        launchDate:
-          type: string
-          description: Launch date timestamp
-          example: '2021-08-29T09:12:33.001Z'
-        launchYear:
-          type: integer
-          example: 2021
-        launchQuarter:
-          type: string
-          example: Q1
-          enum: [ "Q1", "Q2", "Q3", "Q4" ]
-        productOwner:
-          type: string
-          minimum: 1
-          maximum: 20
-        businessValue:
-          type: string
-          minimum: 1
-          maximum: 2000
-        expectedRoi:
-          type: string
-          minimum: 1
-          maximum: 100
-
-    FeatureDetails:
-      type: object
-      required: [ id, title, description, brand, launchDate, launchYear, launchQuarter, productOwner, businessValue,
-                  expectedRoi ]
-      properties:
-        id:
-          type: string
-        title:
-          type: string
-          minimum: 1
-          maximum: 100
-        description:
-          type: string
-          minimum: 1
-          maximum: 100
-        brand:
-          type: string
-          example: Rogers
-          enum: [ "Rogers", "Fido", "Chatr" ]
-        launchDate:
-          type: string
-          description: Launch date timestamp
-          example: '2021-08-29T09:12:33.001Z'
-        launchYear:
-          type: integer
-          example: 2021
-        launchQuarter:
-          type: string
-          example: Q1
-          enum: [ "Q1", "Q2", "Q3", "Q4" ]
-        productOwner:
-          type: string
-          minimum: 1
-          maximum: 20
-        businessValue:
-          type: string
-          minimum: 1
-          maximum: 2000
-        expectedRoi:
-          type: string
-          minimum: 1
-          maximum: 100
-
-    ResponseStatus:
-      type: object
-      properties:
-        code:
-          type: string
-          example: 2xx
-        codeName:
-          type: string
-          example: success
-
-
+#openapi: "3.0.0"
+#info:
+#  description: "VA Features APIs"
+#  version: "1.0.0"
+#  title: "VA-Features"
+#
+#servers:
+#
+#  - url: https://envheader-va-ms.chatapps-environment.rci.rogers.com/va-features/version
+#    description: envheader can be dev01,dev02,qa01,qa02 and need to be passed as a header param to get it replaced by APIM
+#
+#tags:
+#  - name: Features api
+#
+#
+#paths:
+#
+#  /feature:
+#    post:
+#      security:
+#        - BearerAuth: [ ]
+#      tags:
+#        - Features api
+#      operationId: addFeature
+#      summary: Adds new feature details.
+#      requestBody:
+#        required: true
+#        content:
+#          application/json:
+#            schema:
+#              $ref: '#/components/schemas/FeatureRequest'
+#
+#      responses:
+#        '201':
+#          description: Successfully added the feature details.
+#          headers:
+#            id:
+#              $ref: '#/components/headers/id'
+#          content:
+#            application/json:
+#              schema:
+#                $ref: '#/components/schemas/ResponseStatus'
+#        '400':
+#          description: Bad request.
+#          content:
+#            application/json:
+#              schema:
+#                $ref: '#/components/schemas/ResponseStatus'
+#        '500':
+#          description: Unknown server error.
+#          content:
+#            application/json:
+#              schema:
+#                $ref: '#/components/schemas/ResponseStatus'
+#
+#    get:
+#      security:
+#        - BearerAuth: [ ]
+#      tags:
+#        - Features api
+#      operationId: getFeatures
+#      summary: Gets the list of all the added features.
+#      responses:
+#        '200':
+#          description: Successfully fetched the feature details.
+#          content:
+#            application/json:
+#              schema:
+#                type: array
+#                items:
+#                  $ref: '#/components/schemas/FeatureDetails'
+#        '400':
+#          description: Bad request.
+#          content:
+#            application/json:
+#              schema:
+#                $ref: '#/components/schemas/ResponseStatus'
+#        '500':
+#          description: Unknown server error.
+#          content:
+#            application/json:
+#              schema:
+#                $ref: '#/components/schemas/ResponseStatus'
+#
+#  /feature/{id}:
+#    get:
+#      security:
+#        - BearerAuth: [ ]
+#      parameters:
+#        - $ref: '#/components/parameters/id'
+#      tags:
+#        - Features api
+#      operationId: getFeature
+#      summary: Gets feature details based on Id.
+#      responses:
+#        '200':
+#          description: Successfully fetched the feature details.
+#          content:
+#            application/json:
+#              schema:
+#                $ref: '#/components/schemas/FeatureDetails'
+#        '400':
+#          description: Bad request.
+#          content:
+#            application/json:
+#              schema:
+#                $ref: '#/components/schemas/ResponseStatus'
+#        '500':
+#          description: Unknown server error.
+#          content:
+#            application/json:
+#              schema:
+#                $ref: '#/components/schemas/ResponseStatus'
+#
+#    put:
+#      security:
+#        - BearerAuth: [ ]
+#      parameters:
+#        - $ref: '#/components/parameters/id'
+#      tags:
+#        - Features api
+#      operationId: updateFeature
+#      summary: Updates existing feature details.
+#      requestBody:
+#        required: true
+#        content:
+#          application/json:
+#            schema:
+#              $ref: '#/components/schemas/FeatureRequest'
+#
+#      responses:
+#        '200':
+#          description: Successfully updated the feature details.
+#          content:
+#            application/json:
+#              schema:
+#                $ref: '#/components/schemas/ResponseStatus'
+#        '400':
+#          description: Bad request.
+#          content:
+#            application/json:
+#              schema:
+#                $ref: '#/components/schemas/ResponseStatus'
+#        '500':
+#          description: Unknown server error.
+#          content:
+#            application/json:
+#              schema:
+#                $ref: '#/components/schemas/ResponseStatus'
+#
+#    delete:
+#      security:
+#        - BearerAuth: [ ]
+#      parameters:
+#        - $ref: '#/components/parameters/id'
+#      tags:
+#        - Features api
+#      operationId: deleteFeature
+#      summary: Deletes an existing feature.
+#
+#      responses:
+#        '200':
+#          description: Successfully deleted the feature details.
+#          content:
+#            application/json:
+#              schema:
+#                $ref: '#/components/schemas/ResponseStatus'
+#        '400':
+#          description: Bad request.
+#          content:
+#            application/json:
+#              schema:
+#                $ref: '#/components/schemas/ResponseStatus'
+#        '500':
+#          description: Unknown server error.
+#          content:
+#            application/json:
+#              schema:
+#                $ref: '#/components/schemas/ResponseStatus'
+#
+#components:
+#
+#  securitySchemes:
+#    ApiKeyAuth:
+#      type: apiKey
+#      name: "x-api-key"
+#      in: "header"
+#    BearerAuth:
+#      type: http
+#      scheme: bearer
+#
+#  headers:
+#    id:
+#      description: Unique identifier of the feature
+#      schema:
+#        type: string
+#      required: true
+#
+#  parameters:
+#    apiKey:
+#      in: header
+#      name: x-api-key
+#      description: >-
+#        Key to access the APIs.
+#      schema:
+#        type: string
+#      required: true
+#
+#    id:
+#      name: id
+#      in: path
+#      description: Feature Id
+#      schema:
+#        type: string
+#      required: true
+#
+#  schemas:
+#    FeatureRequest:
+#      type: object
+#      required: [title, description, brand, launchDate, launchYear, launchQuarter, productOwner, businessValue,
+#      expectedRoi]
+#      properties:
+#        title:
+#          type: string
+#          minimum: 1
+#          maximum: 100
+#        description:
+#          type: string
+#          minimum: 1
+#          maximum: 100
+#        brand:
+#          type: string
+#          example: Rogers
+#          enum: [ "Rogers", "Fido", "Chatr" ]
+#        launchDate:
+#          type: string
+#          description: Launch date timestamp
+#          example: '2021-08-29T09:12:33.001Z'
+#        launchYear:
+#          type: integer
+#          example: 2021
+#        launchQuarter:
+#          type: string
+#          example: Q1
+#          enum: [ "Q1", "Q2", "Q3", "Q4" ]
+#        productOwner:
+#          type: string
+#          minimum: 1
+#          maximum: 20
+#        businessValue:
+#          type: string
+#          minimum: 1
+#          maximum: 2000
+#        expectedRoi:
+#          type: string
+#          minimum: 1
+#          maximum: 100
+#
+#    FeatureDetails:
+#      type: object
+#      required: [ id, title, description, brand, launchDate, launchYear, launchQuarter, productOwner, businessValue,
+#                  expectedRoi ]
+#      properties:
+#        id:
+#          type: string
+#        title:
+#          type: string
+#          minimum: 1
+#          maximum: 100
+#        description:
+#          type: string
+#          minimum: 1
+#          maximum: 100
+#        brand:
+#          type: string
+#          example: Rogers
+#          enum: [ "Rogers", "Fido", "Chatr" ]
+#        launchDate:
+#          type: string
+#          description: Launch date timestamp
+#          example: '2021-08-29T09:12:33.001Z'
+#        launchYear:
+#          type: integer
+#          example: 2021
+#        launchQuarter:
+#          type: string
+#          example: Q1
+#          enum: [ "Q1", "Q2", "Q3", "Q4" ]
+#        productOwner:
+#          type: string
+#          minimum: 1
+#          maximum: 20
+#        businessValue:
+#          type: string
+#          minimum: 1
+#          maximum: 2000
+#        expectedRoi:
+#          type: string
+#          minimum: 1
+#          maximum: 100
+#
+#    ResponseStatus:
+#      type: object
+#      properties:
+#        code:
+#          type: string
+#          example: 2xx
+#        codeName:
+#          type: string
+#          example: success
+#
+#

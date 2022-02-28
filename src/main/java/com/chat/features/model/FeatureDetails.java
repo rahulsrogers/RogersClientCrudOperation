@@ -4,14 +4,17 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
+import org.openapitools.jackson.nullable.JsonNullable;
+import javax.validation.Valid;
 import javax.validation.constraints.*;
+import org.hibernate.validator.constraints.*;
 
 /**
  * FeatureDetails
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-02-16T06:31:35.058456400-05:00[America/Toronto]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-02-28T05:48:51.547359200-05:00[America/Toronto]")
 public class FeatureDetails   {
   @JsonProperty("id")
   private String id;
@@ -150,14 +153,13 @@ public class FeatureDetails   {
    * minimum: 1
    * maximum: 100
    * @return title
-   * @param title
   */
   @ApiModelProperty(required = true, value = "")
   @NotNull
 
 @DecimalMin("1") @DecimalMax("100") 
-  public String getTitle(String title) {
-    return this.title;
+  public String getTitle() {
+    return title;
   }
 
   public void setTitle(String title) {

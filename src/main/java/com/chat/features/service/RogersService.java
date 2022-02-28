@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public interface RogersService {
 
-    List<FeatureDetails> getTodos();
+    List<List<FeatureDetails>> getTodos();
 
     FeatureDetails getTodoById(String id);
 

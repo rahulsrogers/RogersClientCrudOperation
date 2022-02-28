@@ -13,7 +13,7 @@ import org.hibernate.validator.constraints.*;
 /**
  * ResponseStatus
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-02-16T06:31:35.058456400-05:00[America/Toronto]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-02-28T05:48:51.547359200-05:00[America/Toronto]")
 public class ResponseStatus   {
   @JsonProperty("code")
   private String code;

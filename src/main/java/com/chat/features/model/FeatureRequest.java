@@ -11,7 +11,7 @@ import javax.validation.constraints.*;
 /**
  * FeatureRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-02-16T06:31:35.058456400-05:00[America/Toronto]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-02-28T05:48:51.547359200-05:00[America/Toronto]")
 public class FeatureRequest   {
   @JsonProperty("title")
   private String title;
@@ -57,7 +57,7 @@ public class FeatureRequest   {
   }
 
   @JsonProperty("brand")
-  private Brand brand;
+  private BrandEnum brand;
 
   @JsonProperty("launchDate")
   private String launchDate;
@@ -162,7 +162,7 @@ public class FeatureRequest   {
     this.description = description;
   }
 
-  public FeatureRequest brand(Brand brand) {
+  public FeatureRequest brand(BrandEnum brand) {
     this.brand = brand;
     return this;
   }
@@ -174,11 +174,11 @@ public class FeatureRequest   {
   @ApiModelProperty(example = "Rogers", required = true, value = "")
 
 
-  public Brand getBrand() {
+  public BrandEnum getBrand() {
     return brand;
   }
 
-  public void setBrand(Brand brand) {
+  public void setBrand(BrandEnum brand) {
     this.brand = brand;
   }
 
@@ -234,6 +234,7 @@ public class FeatureRequest   {
    * @return launchQuarter
   */
   @ApiModelProperty(example = "Q1", required = true, value = "")
+  @NotNull
 
 
   public LaunchQuarterEnum getLaunchQuarter() {

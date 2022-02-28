@@ -4,7 +4,6 @@ import com.chat.features.api.FeatureApi;
 import com.chat.features.model.FeatureDetails;
 import com.chat.features.model.FeatureRequest;
 import com.chat.features.model.ResponseStatus;
-import com.chat.features.model.RogersClientModel;
 import com.chat.features.service.RogersClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -12,8 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,14 +30,13 @@ public class FeatureApiController implements FeatureApi {
    }
 
 @Override
-
 @GetMapping("/feature")
-public ResponseEntity<List<FeatureDetails>> getFeatures(){
-    List<FeatureDetails> featureDetails=rogersClientService.getTodos();
+public ResponseEntity<List<List<FeatureDetails>>> getFeatures(){
+    List<List<FeatureDetails>> featureDetails=rogersClientService.getTodos();
        try{
          if (featureDetails.isEmpty())
-             return  new ResponseEntity<>(featureDetails,HttpStatus.NO_CONTENT);
-         else return  new ResponseEntity<>(featureDetails,HttpStatus.OK);
+             return  new ResponseEntity(featureDetails,HttpStatus.NO_CONTENT);
+         else return  new ResponseEntity(featureDetails,HttpStatus.OK);
      }catch (Exception e){
          return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
      }
@@ -52,22 +48,7 @@ public ResponseEntity<List<FeatureDetails>> getFeatures(){
 
 
 
-//
-//    try{
-//        List<RogersClientModel> list=rogersClientService.getTodos();
-//
-//        Iterator iterator= list.iterator();
-//        while (iterator.hasNext()) {
-//        List<FeatureDetails> list1= (List<FeatureDetails>) iterator.next();
-//            return new ResponseEntity(list1,HttpStatus.OK);
-//        }
-//
-//
-//        } catch(Exception e) {
-//           return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-//
-//   return null;
-//}
+
 @Override
 @GetMapping("/feature/{id}")
 public ResponseEntity<FeatureDetails> getFeature(@PathVariable String id) {

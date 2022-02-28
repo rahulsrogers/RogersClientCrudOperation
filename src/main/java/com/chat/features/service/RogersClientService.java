@@ -91,23 +91,24 @@ public class RogersClientService implements  RogersService{
         }
 
     }
+
     @Override
-    public List<FeatureDetails> getTodos() {
-        List<FeatureDetails> featureDetailsList = new ArrayList<>();
+    public List<List<FeatureDetails>> getTodos() {
+        List<FeatureDetails> oflist=new ArrayList<>();
+    List<FeatureDetails> featureDetailsList = new ArrayList<>();
         List<RogersClientModel> models = rogersClientRepo.findAll();
-        List reverseList = new ArrayList<>();
-        ListIterator listIterator = null;
+
 
         models.forEach(model -> {
-             Comparator<FeatureDetails> comparator = new Comparator<FeatureDetails>() {
+            Comparator<FeatureDetails> comparator = new Comparator<FeatureDetails>() {
 
-                 @Override
-                 public int compare(FeatureDetails o1, FeatureDetails o2) {
-                     String launchDate_1 = o1.getLaunchDate();
-                     String launchDate_2 = o2.getLaunchDate();
-                     return launchDate_2.compareTo(launchDate_1);
+                @Override
+                public int compare(FeatureDetails o1, FeatureDetails o2) {
+                    String launchDate_1 = o1.getLaunchDate();
+                    String launchDate_2 = o2.getLaunchDate();
+                    return launchDate_2.compareTo(launchDate_1);
 
-                 }};
+                }};
 
             FeatureDetails featureDetails = new FeatureDetails();
             //String s=featureDetails.getLaunchDate();
@@ -124,10 +125,12 @@ public class RogersClientService implements  RogersService{
             featureDetails.setProductOwner(model.getProductOwner());
             featureDetails.setLaunchQuarter(convertToFeatureDetailsLaunchQuter(model.getLaunchQuarter()));
 featureDetails.setBusinessValue(model.getBusinessValue());
+              featureDetailsList.add(featureDetails);
+              try{
+              oflist.add((FeatureDetails) featureDetailsList);}catch (ClassCastException e){e.printStackTrace();}
                 Collections.sort(featureDetailsList,comparator);
-            featureDetailsList.add(featureDetails);
         }});
-        return featureDetailsList;
+        return Collections.singletonList(oflist);
     }
 
 
@@ -166,7 +169,7 @@ s.setLaunchQuarter(convertToFeatureDetailsLaunchQuter(model.getLaunchQuarter()))
       model.setLaunchQuarter(convertToFeatureDetailsLaunchQuter(todo.getLaunchQuarter()));
         model.setDescription(todo.getDescription());
         model.setLaunchDate(todo.getLaunchDate());
-       model.setBrand(todo.getBrand());
+       model.setBrand(convertToFeatureDetailsBrand(todo.getBrand()));
         model.setExpectedRoi(todo.getExpectedRoi());
         model.setBusinessValue(todo.getBusinessValue());
         rogersClientRepo.save(model);
@@ -184,7 +187,7 @@ s.setLaunchQuarter(convertToFeatureDetailsLaunchQuter(model.getLaunchQuarter()))
     public void updateTodo(String id,FeatureRequest featureDetails) {
 RogersClientModel existing=rogersClientRepo.findByid(id);
         System.out.println(existing.toString());
-       existing.setBrand(featureDetails.getBrand());
+       existing.setBrand(convertToFeatureDetailsBrand(featureDetails.getBrand()));
         existing.setBusinessValue(featureDetails.getBusinessValue());
         existing.setExpectedRoi(featureDetails.getExpectedRoi());
         existing.setTitle(featureDetails.getTitle());
