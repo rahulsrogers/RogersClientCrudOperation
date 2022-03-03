@@ -29,10 +29,10 @@ public class FeatureApiController implements FeatureApi {
        this.rogersClientService=rogersClientService;
    }
 
-@Override
+/*
 @GetMapping("/feature")
-public ResponseEntity<List<List<FeatureDetails>>> getFeatures(){
-    List<List<FeatureDetails>> featureDetails=rogersClientService.getTodos();
+public ResponseEntity<List<FeatureDetails>> getFeatures(){
+    List<FeatureDetails> featureDetails=rogersClientService.getTodos();
        try{
          if (featureDetails.isEmpty())
              return  new ResponseEntity(featureDetails,HttpStatus.NO_CONTENT);
@@ -43,7 +43,7 @@ public ResponseEntity<List<List<FeatureDetails>>> getFeatures(){
 
 
 
-}
+}*/
 
 
 
@@ -100,7 +100,26 @@ catch (Exception e){
        }
     }
 
-    @PutMapping("/feature/{id}")
+
+    public ResponseEntity<List<List<FeatureDetails>>> getFeatures() {
+        return null;
+    }
+
+
+    @Override
+    public   ResponseEntity<List<List<FeatureDetails>>> getFeatures(String fromDate, String toDate, String groupBy) {
+
+        List<List<FeatureDetails>> featureDetails=rogersClientService.getTodos(fromDate,toDate,groupBy);
+        try{
+            if (featureDetails.isEmpty())
+                return  new ResponseEntity(featureDetails,HttpStatus.NO_CONTENT);
+            else return  new ResponseEntity(featureDetails,HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+        @PutMapping("/feature/{id}")
        public ResponseEntity<ResponseStatus> updateFeature(@PathVariable String id,@RequestBody FeatureRequest featureRequest){
         ResponseStatus responseStatus = new ResponseStatus();
        try {

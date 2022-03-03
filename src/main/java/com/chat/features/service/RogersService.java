@@ -11,7 +11,9 @@ import java.util.List;
 @Service
 public interface RogersService {
 
-    List<List<FeatureDetails>> getTodos();
+    List<FeatureDetails> getTodos();
+
+    List<List<FeatureDetails>> getTodos(String from,String todate,String groupby);
 
     FeatureDetails getTodoById(String id);
 

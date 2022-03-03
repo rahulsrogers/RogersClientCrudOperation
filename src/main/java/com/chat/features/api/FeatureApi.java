@@ -182,7 +182,6 @@ public interface FeatureApi {
     default ResponseEntity<List<List<FeatureDetails>>> _getFeatures(@ApiParam(value = "The start date from which features launched on or after this date are returned in the descending order" ) @RequestHeader(value="fromDate", required=false) String fromDate,@ApiParam(value = "The end date up to which features launched on or before this date are returned in the descending order" ) @RequestHeader(value="toDate", required=false) String toDate,@ApiParam(value = "The parameter by which returned feature details are grouped by.", allowableValues = "y, q, d") @Valid @RequestParam(value = "groupBy", required = false) String groupBy) {
         return getFeatures(fromDate, toDate, groupBy);
     }
-
     // Override this method
     default  ResponseEntity<List<List<FeatureDetails>>> getFeatures(String fromDate, String toDate, String groupBy) {
         getRequest().ifPresent(request -> {

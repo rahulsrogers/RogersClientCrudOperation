@@ -25,5 +25,7 @@ public interface RogersClientRepo extends CassandraRepository<RogersClientModel,
     //public List<RogersClientModel> findAll();
    // public List<List<FeatureDetails>> findgroupBy(@RequestParam(required = false) Optional<String>from_date,@RequestParam(required = false)Optional<String> to_date,
      //                                             @RequestParam(required = false)Optional<String> group_by);
+    public List<RogersClientModel> findAllByLaunchDateBetween(String toDate, String fromDate);
+
 
 }
